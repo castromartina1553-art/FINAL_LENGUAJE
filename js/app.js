@@ -279,7 +279,7 @@
         table.hidden = true;
         emptyState.hidden = true;
 
-        apiRequest('API.php?entidad=' + encodeURIComponent(state.entity), { method: 'GET' })
+        apiRequest('listar.php?entidad=' + encodeURIComponent(state.entity), { method: 'GET' })
             .then(function (response) {
                 state.records = response.data;
                 showApp(state.user);
@@ -376,8 +376,9 @@
         });
 
         var method = state.editingId ? 'PATCH' : 'POST';
-        var url = 'API.php?entidad=' + encodeURIComponent(state.entity);
+        var url = 'crear.php?entidad=' + encodeURIComponent(state.entity);
         if (state.editingId) {
+            url = 'editar.php?entidad=' + encodeURIComponent(state.entity);
             url += '&id=' + encodeURIComponent(state.editingId);
         }
 
@@ -405,7 +406,7 @@
         if (!window.confirm('¿Eliminar este registro? Esta acción no se puede deshacer.')) {
             return;
         }
-        var url = 'API.php?entidad=' + encodeURIComponent(state.entity) + '&id=' + encodeURIComponent(record.id);
+        var url = 'eliminar.php?entidad=' + encodeURIComponent(state.entity) + '&id=' + encodeURIComponent(record.id);
         apiRequest(url, { method: 'DELETE' })
             .then(function (response) {
                 showNotice(response.message || 'Registro eliminado.');
@@ -465,7 +466,7 @@
 
     renderNavigation();
     updateSection();
-    apiRequest('API.php?entidad=productos', { method: 'GET' })
+    apiRequest('listar.php?entidad=productos', { method: 'GET' })
         .then(function (response) {
             state.records = response.data;
             showApp(null);

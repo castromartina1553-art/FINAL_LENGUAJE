@@ -1,5 +1,11 @@
 <?php
-$apiBase = '../../backend';
+$projectBase = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');
+if ($projectBase === '.') {
+    $projectBase = '';
+}
+$assetBase = $projectBase;
+$apiBase = $projectBase . '/backend';
+$homeUrl = $projectBase . '/';
 ?>
 <!doctype html>
 <html lang="es">
@@ -8,12 +14,12 @@ $apiBase = '../../backend';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f6f8">
     <title>Panel de gestión</title>
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($assetBase . '/css/app.css', ENT_QUOTES, 'UTF-8'); ?>">
 </head>
 <body>
     <main id="login-view" class="login-layout" hidden>
         <section class="login-card">
-            <a class="brand brand-login" href="index.php" aria-label="Inicio">
+            <a class="brand brand-login" href="<?php echo htmlspecialchars($homeUrl, ENT_QUOTES, 'UTF-8'); ?>" aria-label="Inicio">
                 <span class="brand-mark">G</span>
                 <span>Gestión<span class="brand-muted"> Simple</span></span>
             </a>
@@ -33,7 +39,7 @@ $apiBase = '../../backend';
 
     <div id="app-view" class="app-layout" hidden>
         <aside class="sidebar">
-            <a class="brand" href="index.php">
+            <a class="brand" href="<?php echo htmlspecialchars($homeUrl, ENT_QUOTES, 'UTF-8'); ?>">
                 <span class="brand-mark">G</span>
                 <span>Gestión<span class="brand-muted"> Simple</span></span>
             </a>
@@ -102,6 +108,6 @@ $apiBase = '../../backend';
     <script>
         window.APP_CONFIG = { apiBase: <?php echo json_encode($apiBase, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?> };
     </script>
-    <script src="js/app.js"></script>
+    <script src="<?php echo htmlspecialchars($assetBase . '/js/app.js', ENT_QUOTES, 'UTF-8'); ?>"></script>
 </body>
 </html>
